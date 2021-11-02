@@ -31,6 +31,8 @@ namespace LoanCalculator
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmHome));
             this.pnPrincipal = new System.Windows.Forms.Panel();
+            this.PbxClose = new System.Windows.Forms.PictureBox();
+            this.PbxIcon = new System.Windows.Forms.PictureBox();
             this.Lbltitle = new System.Windows.Forms.Label();
             this.lblAmountLoan = new System.Windows.Forms.Label();
             this.LblAmountofDues = new System.Windows.Forms.Label();
@@ -39,15 +41,13 @@ namespace LoanCalculator
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.LblAnualInterestRate = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.CbxTypeofLoan = new System.Windows.Forms.ComboBox();
             this.BtnCalculate = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.PbxIcon = new System.Windows.Forms.PictureBox();
-            this.PbxClose = new System.Windows.Forms.PictureBox();
             this.pnPrincipal.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PbxIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PbxClose)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PbxIcon)).BeginInit();
             this.SuspendLayout();
             // 
             // pnPrincipal
@@ -62,6 +62,25 @@ namespace LoanCalculator
             this.pnPrincipal.Size = new System.Drawing.Size(376, 37);
             this.pnPrincipal.TabIndex = 0;
             this.pnPrincipal.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PnPrincipal_MouseDown);
+            // 
+            // PbxClose
+            // 
+            this.PbxClose.Image = ((System.Drawing.Image)(resources.GetObject("PbxClose.Image")));
+            this.PbxClose.Location = new System.Drawing.Point(344, 7);
+            this.PbxClose.Name = "PbxClose";
+            this.PbxClose.Size = new System.Drawing.Size(24, 24);
+            this.PbxClose.TabIndex = 2;
+            this.PbxClose.TabStop = false;
+            this.PbxClose.Click += new System.EventHandler(this.PbxClose_Click);
+            // 
+            // PbxIcon
+            // 
+            this.PbxIcon.Image = ((System.Drawing.Image)(resources.GetObject("PbxIcon.Image")));
+            this.PbxIcon.Location = new System.Drawing.Point(1, 2);
+            this.PbxIcon.Name = "PbxIcon";
+            this.PbxIcon.Size = new System.Drawing.Size(39, 33);
+            this.PbxIcon.TabIndex = 1;
+            this.PbxIcon.TabStop = false;
             // 
             // Lbltitle
             // 
@@ -151,18 +170,18 @@ namespace LoanCalculator
             this.label1.TabIndex = 7;
             this.label1.Text = "Type of Loan: ";
             // 
-            // comboBox1
+            // CbxTypeofLoan
             // 
-            this.comboBox1.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBox1.Font = new System.Drawing.Font("Bahnschrift Condensed", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.comboBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(46)))), ((int)(((byte)(119)))));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(108, 144);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(237, 26);
-            this.comboBox1.TabIndex = 8;
+            this.CbxTypeofLoan.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.CbxTypeofLoan.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CbxTypeofLoan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CbxTypeofLoan.Font = new System.Drawing.Font("Bahnschrift Condensed", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.CbxTypeofLoan.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(46)))), ((int)(((byte)(119)))));
+            this.CbxTypeofLoan.FormattingEnabled = true;
+            this.CbxTypeofLoan.Location = new System.Drawing.Point(108, 144);
+            this.CbxTypeofLoan.Name = "CbxTypeofLoan";
+            this.CbxTypeofLoan.Size = new System.Drawing.Size(237, 26);
+            this.CbxTypeofLoan.TabIndex = 8;
             // 
             // BtnCalculate
             // 
@@ -190,6 +209,7 @@ namespace LoanCalculator
             this.label2.Size = new System.Drawing.Size(122, 24);
             this.label2.TabIndex = 11;
             this.label2.Text = "Total Monthly Dues: ";
+            this.label2.Visible = false;
             // 
             // textBox2
             // 
@@ -203,23 +223,7 @@ namespace LoanCalculator
             this.textBox2.ReadOnly = true;
             this.textBox2.Size = new System.Drawing.Size(178, 24);
             this.textBox2.TabIndex = 10;
-            // 
-            // PbxIcon
-            // 
-            this.PbxIcon.Image = ((System.Drawing.Image)(resources.GetObject("PbxIcon.Image")));
-            this.PbxIcon.Location = new System.Drawing.Point(1, 2);
-            this.PbxIcon.Name = "PbxIcon";
-            this.PbxIcon.Size = new System.Drawing.Size(39, 33);
-            this.PbxIcon.TabIndex = 1;
-            this.PbxIcon.TabStop = false;
-            // 
-            // PbxClose
-            // 
-            this.PbxClose.Location = new System.Drawing.Point(344, 7);
-            this.PbxClose.Name = "PbxClose";
-            this.PbxClose.Size = new System.Drawing.Size(24, 24);
-            this.PbxClose.TabIndex = 2;
-            this.PbxClose.TabStop = false;
+            this.textBox2.Visible = false;
             // 
             // FrmHome
             // 
@@ -230,7 +234,7 @@ namespace LoanCalculator
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.BtnCalculate);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.CbxTypeofLoan);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.LblAnualInterestRate);
             this.Controls.Add(this.textBox1);
@@ -244,8 +248,8 @@ namespace LoanCalculator
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.FrmHome_Load);
             this.pnPrincipal.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.PbxIcon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PbxClose)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PbxIcon)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -262,7 +266,7 @@ namespace LoanCalculator
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label LblAnualInterestRate;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox CbxTypeofLoan;
         private System.Windows.Forms.Button BtnCalculate;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox2;
