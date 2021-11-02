@@ -9,12 +9,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using BusinessLayer.ComboBoxItem;
+using BusinessLayer;
 
 namespace LoanCalculator
 {
     public partial class FrmHome : Form
     {
 
+        public bool IsCalculate { get; set; } = false;
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
         private extern static void ReleaseCapture();
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
@@ -34,9 +36,62 @@ namespace LoanCalculator
             this.Close();
         }
 
+        private void BtnCalculate_Click(object sender, EventArgs e)
+        {
+            LoanCalc();
+        }
         public FrmHome()
         {
             InitializeComponent();
+        }
+
+        private void LoanCalc() {
+            try
+            {
+
+                ComboBoxItem SelectedMonthly = CbxMonthlyDues.SelectedItem as ComboBoxItem;
+                ComboBoxItem SelectedLoanType = CbxTypeofLoan.SelectedItem as ComboBoxItem;
+
+                if (SelectedMonthly.Value == null)
+                {
+                    string Message = "Please, Select a Monthly Amount";
+                    FrmNotify Warning = new FrmNotify(Message);
+                    Warning.Show();
+                }
+                else if (SelectedLoanType.Value == null)
+                {
+                    string Message = "Please, Select a Loan Type";
+                    FrmNotify Warning = new FrmNotify(Message);
+                    Warning.Show();
+                }
+                else if (string.IsNullOrEmpty(TxtLoanAmount.Text))
+                {
+                    string Message = "Please, Insert a Loan Amount";
+                    FrmNotify Warning = new FrmNotify(Message);
+                    Warning.Show();
+                }
+                else
+                {
+                    LoanCalc loan = new LoanCalc();
+                    double Amount = Convert.ToDouble(TxtLoanAmount.Text);
+                    int MonthlyDues = (int)SelectedMonthly.Value;
+                    int TypeLoan = (int)SelectedLoanType.Value;
+                    txtInterestRate.Text = InterestRate((int?)SelectedLoanType.Value);
+
+                    lblTotalDues.Visible = true;
+                    TxtAmountDues.Visible = true;
+                    TxtAmountDues.Text = loan.LoanOperation(Amount,MonthlyDues,TypeLoan).ToString("#.##");
+                    IsCalculate = true;
+
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        
         }
 
         private void LoadComboBox() {
@@ -45,22 +100,25 @@ namespace LoanCalculator
                 Text = "Select a Month",
                 Value = null
             };
-
             CbxMonthlyDues.Items.Add(MonthlyAmount);
 
             int[] Month = new int[19];
 
-            Month[0]=12;
-            MonthlyAmount.Text = Convert.ToString($"{Month[0]} Month");
-            MonthlyAmount.Value = 1;
-            CbxMonthlyDues.Items.Add(MonthlyAmount);
+            ComboBoxItem[] MonthlyArray = new ComboBoxItem[19];
 
+            Month[0] = 12;
+            MonthlyArray[0] = new ComboBoxItem();
+
+            MonthlyArray[0].Text= Convert.ToString($"{Month[0]} Month");
+            MonthlyArray[0].Value = 12;
+            CbxMonthlyDues.Items.Add(MonthlyArray[0]);
             for (int i = 1; i < 19; i++)
             {
+                MonthlyArray[i] = new ComboBoxItem();
                 Month[i] = Month[i-1] + 6;
-                MonthlyAmount.Text = Convert.ToString($"{Month[i]} Month");
-                MonthlyAmount.Value = i;
-                CbxMonthlyDues.Items.Add(MonthlyAmount);
+                MonthlyArray[i].Text = Convert.ToString($"{Month[i]} Month");
+                MonthlyArray[i].Value = Month[i - 1] + 6;
+                CbxMonthlyDues.Items.Add(MonthlyArray[i]);
             }
 
             ComboBoxItem LoanType = new ComboBoxItem{
@@ -89,6 +147,52 @@ namespace LoanCalculator
             CbxTypeofLoan.Items.Add(AutoLoan);
             CbxTypeofLoan.Items.Add(MortgageLoan);
 
+        }
+
+        private string InterestRate(int? TypeLoan) {
+
+            string Rate;
+            switch (TypeLoan)
+            {
+                case (int)LoanEnum.Personal:
+                    Rate = "22%";
+                    LblInterestRate.Visible = true;
+                    txtInterestRate.Visible = true;
+                    break;
+                case (int)LoanEnum.Auto:
+                    Rate = "12%";
+                    LblInterestRate.Visible = true;
+                    txtInterestRate.Visible = true;
+                    break;
+                case (int)LoanEnum.Mortgage:
+                    Rate = "8%";
+                    LblInterestRate.Visible = true;
+                    txtInterestRate.Visible = true;
+                    break;
+                default:
+                    Rate = "None";
+                    LblInterestRate.Visible = true;
+                    txtInterestRate.Visible = true;
+                    break;
+            }
+
+            return Rate;
+        }
+
+        private void CbxMonthlyDues_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (IsCalculate)
+            {
+                LoanCalc();
+            }
+        }
+
+        private void CbxTypeofLoan_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (IsCalculate)
+            {
+                LoanCalc();
+            }
         }
     }
 }

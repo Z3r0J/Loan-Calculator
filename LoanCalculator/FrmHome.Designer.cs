@@ -38,13 +38,13 @@ namespace LoanCalculator
             this.LblAmountofDues = new System.Windows.Forms.Label();
             this.TxtLoanAmount = new System.Windows.Forms.TextBox();
             this.CbxMonthlyDues = new System.Windows.Forms.ComboBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.LblAnualInterestRate = new System.Windows.Forms.Label();
+            this.txtInterestRate = new System.Windows.Forms.TextBox();
+            this.LblInterestRate = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.CbxTypeofLoan = new System.Windows.Forms.ComboBox();
             this.BtnCalculate = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.lblTotalDues = new System.Windows.Forms.Label();
+            this.TxtAmountDues = new System.Windows.Forms.TextBox();
             this.pnPrincipal.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PbxClose)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PbxIcon)).BeginInit();
@@ -136,29 +136,32 @@ namespace LoanCalculator
             this.CbxMonthlyDues.Name = "CbxMonthlyDues";
             this.CbxMonthlyDues.Size = new System.Drawing.Size(178, 26);
             this.CbxMonthlyDues.TabIndex = 4;
+            this.CbxMonthlyDues.SelectedIndexChanged += new System.EventHandler(this.CbxMonthlyDues_SelectedIndexChanged);
             // 
-            // textBox1
+            // txtInterestRate
             // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Enabled = false;
-            this.textBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(46)))), ((int)(((byte)(119)))));
-            this.textBox1.Location = new System.Drawing.Point(167, 185);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(178, 24);
-            this.textBox1.TabIndex = 5;
+            this.txtInterestRate.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.txtInterestRate.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtInterestRate.Font = new System.Drawing.Font("Bahnschrift Condensed", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtInterestRate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(46)))), ((int)(((byte)(119)))));
+            this.txtInterestRate.Location = new System.Drawing.Point(167, 185);
+            this.txtInterestRate.Multiline = true;
+            this.txtInterestRate.Name = "txtInterestRate";
+            this.txtInterestRate.ReadOnly = true;
+            this.txtInterestRate.Size = new System.Drawing.Size(178, 24);
+            this.txtInterestRate.TabIndex = 5;
+            this.txtInterestRate.Visible = false;
             // 
-            // LblAnualInterestRate
+            // LblInterestRate
             // 
-            this.LblAnualInterestRate.Font = new System.Drawing.Font("Bodoni MT Condensed", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.LblAnualInterestRate.ForeColor = System.Drawing.Color.White;
-            this.LblAnualInterestRate.Location = new System.Drawing.Point(13, 185);
-            this.LblAnualInterestRate.Name = "LblAnualInterestRate";
-            this.LblAnualInterestRate.Size = new System.Drawing.Size(148, 24);
-            this.LblAnualInterestRate.TabIndex = 6;
-            this.LblAnualInterestRate.Text = "Annual interest rate (%): ";
+            this.LblInterestRate.Font = new System.Drawing.Font("Bodoni MT Condensed", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.LblInterestRate.ForeColor = System.Drawing.Color.White;
+            this.LblInterestRate.Location = new System.Drawing.Point(13, 185);
+            this.LblInterestRate.Name = "LblInterestRate";
+            this.LblInterestRate.Size = new System.Drawing.Size(148, 24);
+            this.LblInterestRate.TabIndex = 6;
+            this.LblInterestRate.Text = "Interest rate (%): ";
+            this.LblInterestRate.Visible = false;
             // 
             // label1
             // 
@@ -182,6 +185,7 @@ namespace LoanCalculator
             this.CbxTypeofLoan.Name = "CbxTypeofLoan";
             this.CbxTypeofLoan.Size = new System.Drawing.Size(237, 26);
             this.CbxTypeofLoan.TabIndex = 8;
+            this.CbxTypeofLoan.SelectedIndexChanged += new System.EventHandler(this.CbxTypeofLoan_SelectedIndexChanged);
             // 
             // BtnCalculate
             // 
@@ -199,31 +203,32 @@ namespace LoanCalculator
             this.BtnCalculate.Text = "Calculate";
             this.BtnCalculate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.BtnCalculate.UseVisualStyleBackColor = false;
+            this.BtnCalculate.Click += new System.EventHandler(this.BtnCalculate_Click);
             // 
-            // label2
+            // lblTotalDues
             // 
-            this.label2.Font = new System.Drawing.Font("Bodoni MT Condensed", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(41, 290);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(122, 24);
-            this.label2.TabIndex = 11;
-            this.label2.Text = "Total Monthly Dues: ";
-            this.label2.Visible = false;
+            this.lblTotalDues.Font = new System.Drawing.Font("Bodoni MT Condensed", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblTotalDues.ForeColor = System.Drawing.Color.White;
+            this.lblTotalDues.Location = new System.Drawing.Point(41, 290);
+            this.lblTotalDues.Name = "lblTotalDues";
+            this.lblTotalDues.Size = new System.Drawing.Size(122, 24);
+            this.lblTotalDues.TabIndex = 11;
+            this.lblTotalDues.Text = "Total Monthly Dues: ";
+            this.lblTotalDues.Visible = false;
             // 
-            // textBox2
+            // TxtAmountDues
             // 
-            this.textBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(221)))), ((int)(((byte)(215)))));
-            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox2.Enabled = false;
-            this.textBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(46)))), ((int)(((byte)(119)))));
-            this.textBox2.Location = new System.Drawing.Point(167, 290);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(178, 24);
-            this.textBox2.TabIndex = 10;
-            this.textBox2.Visible = false;
+            this.TxtAmountDues.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(221)))), ((int)(((byte)(215)))));
+            this.TxtAmountDues.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TxtAmountDues.Font = new System.Drawing.Font("Bahnschrift Condensed", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.TxtAmountDues.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(46)))), ((int)(((byte)(119)))));
+            this.TxtAmountDues.Location = new System.Drawing.Point(167, 290);
+            this.TxtAmountDues.Multiline = true;
+            this.TxtAmountDues.Name = "TxtAmountDues";
+            this.TxtAmountDues.ReadOnly = true;
+            this.TxtAmountDues.Size = new System.Drawing.Size(178, 24);
+            this.TxtAmountDues.TabIndex = 10;
+            this.TxtAmountDues.Visible = false;
             // 
             // FrmHome
             // 
@@ -231,13 +236,13 @@ namespace LoanCalculator
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             this.ClientSize = new System.Drawing.Size(376, 337);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.lblTotalDues);
+            this.Controls.Add(this.TxtAmountDues);
             this.Controls.Add(this.BtnCalculate);
             this.Controls.Add(this.CbxTypeofLoan);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.LblAnualInterestRate);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.LblInterestRate);
+            this.Controls.Add(this.txtInterestRate);
             this.Controls.Add(this.CbxMonthlyDues);
             this.Controls.Add(this.TxtLoanAmount);
             this.Controls.Add(this.LblAmountofDues);
@@ -263,13 +268,13 @@ namespace LoanCalculator
         private System.Windows.Forms.TextBox TxtLoanAmount;
         private System.Windows.Forms.ComboBox CbxMonthlyDues;
         private System.Windows.Forms.Label Lbltitle;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label LblAnualInterestRate;
+        private System.Windows.Forms.TextBox txtInterestRate;
+        private System.Windows.Forms.Label LblInterestRate;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox CbxTypeofLoan;
         private System.Windows.Forms.Button BtnCalculate;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label lblTotalDues;
+        private System.Windows.Forms.TextBox TxtAmountDues;
         private System.Windows.Forms.PictureBox PbxIcon;
         private System.Windows.Forms.PictureBox PbxClose;
     }
