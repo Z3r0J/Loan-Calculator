@@ -88,7 +88,9 @@ namespace LoanCalculator
             catch (Exception)
             {
 
-                throw;
+                string Message = "Please, Insert a valid data";
+                FrmNotify Warning = new FrmNotify(Message);
+                Warning.Show();
             }
 
         
@@ -146,6 +148,8 @@ namespace LoanCalculator
             CbxTypeofLoan.Items.Add(LoanPersonal);
             CbxTypeofLoan.Items.Add(AutoLoan);
             CbxTypeofLoan.Items.Add(MortgageLoan);
+            CbxMonthlyDues.SelectedIndex = 0;
+            CbxTypeofLoan.SelectedIndex = 0;
 
         }
 
